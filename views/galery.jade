@@ -1,0 +1,38 @@
+//
+   Created by kostya on 25.10.2016.
+doctype html
+html
+    head
+        title Galery
+        link( rel="stylesheet" href="stylesheets/galery.css")
+    body
+        .panel
+            .left-side
+                form(method="POST" enctype = "multipart/form-data" action="galery")
+                    input(type="file" name="photos" size="10")
+                    input(type="submit" value="Load Images")
+            .right-side
+                form(method="GET" enctype = "multipart/form-data" action="logout")
+                    input(type="submit" value="Logout")
+        .main
+            if data && owner
+                - var i=1;
+                for val in data
+
+                    div(class="unit" )
+                        img(id="unit_"+i src=val.img_path+val.img_name alt=val.img_name)
+                        - i++;
+        div(id="frame")
+
+                button(id="bt_1" value="prew") <
+                button(id="bt_2" value="next") >
+                img(id="canvas" src="")
+                img(id="cross" src="images/cross.png")
+                form(method="DELETE" enctype = "multipart/form-data" action="delete")
+                    input(type="submit" value = "Delete")
+                button(id="rename_bt" type="submit") Rename
+
+                //.unit
+                //    img(src="null/SQLq.jpg", alt="FFFFFFF")
+
+        script(src="javascripts/openImage.js")

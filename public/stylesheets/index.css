@@ -1,0 +1,57 @@
+*{
+    padding:0;
+    margin:0;
+}
+body{
+    background-image: url("../images/background.jpg");
+    background-repeat: no-repeat;
+    -moz-background-size: 100%; /* Firefox 3.6+ */
+    -webkit-background-size: 100%; /* Safari 3.1+ и Chrome 4.0+ */
+    -o-background-size: 100%; /* Opera 9.6+ */
+    background-size: 100%;
+}
+
+.forms-wraper{
+    width: 390px;
+    margin: 0 auto;
+    possition: relative;
+    margin-top: 18%;
+    bottom: 0;
+    left: 0;
+    right: 0;
+}
+
+#login_form, #signup_form{
+    margin: 0 auto;
+    width: auto;
+}
+input{
+    border-radius: 2px;
+    float:right;
+}
+sub{
+    font-size: 22px;
+}
+
+p{
+    margin-top: 10px;
+    margin-bottom: 10px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+.form-button{
+    float: none;
+    width: 100px;
+    margin: 0 auto;
+    padding-top: 2px;
+    padding-bottom: 2px;
+    font-size: 14px;
+}
+div form{
+    margin: 0 auto;
+    width:100px;
+}
+p input{
+    font-size: 25px;
+}
