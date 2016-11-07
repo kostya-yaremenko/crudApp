@@ -45,7 +45,7 @@ app.set('view engine', 'jade');
 // var db = 'mongodb://localhost/db';
 var db = 'mongodb://192.168.1.101:27017/db';
 mongoose.Promise = global.Promise;
-mongoose.connect(db);
+// mongoose.connect(db);
 
 app.get('/', function(req, res){
     res.send('happy to be here');
