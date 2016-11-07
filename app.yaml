@@ -1,2 +1,3 @@
+entrypoint: gunicorn -b :8080 app.js
 runtime : nodejs
 vm : true
