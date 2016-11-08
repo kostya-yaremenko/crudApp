@@ -4,8 +4,6 @@ var favicon = require('serve-favicon');
 var bodyParser = require('body-parser');
 var fs = require('fs');
 var busboy = require('connect-busboy');
-var jq = require('jquery');
-
 
 var app = express();
 var User = require('./User.model');
