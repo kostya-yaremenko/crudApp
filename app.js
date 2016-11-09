@@ -211,8 +211,11 @@ app.use(express.static(__dirname+'public'));
 app.use('/css',express.static(path.join(__dirname, 'public/stylesheets')));
 app.use(express.static('/public/stylesheets/'));
 
-app.set('port', (process.env.port ||3000));
-app.listen(app.get('port'), function(){
-        console.log('Node js is listen on port ',app.get('port'), app.settings.env);
-    });
+// app.set('port', (process.env.port ||3000));
+// app.listen(app.get('port'), function(){
+//         console.log('Node js is listen on port ',app.get('port'), app.settings.env);
+//     });
+app.listen(process.env.PORT || 3000, function(){
+  console.log("Express server listening on port %d in %s mode", this.address().port, app.settings.env);
+});
 module.exports = app;
