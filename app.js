@@ -210,4 +210,9 @@ app.post('/galery', function(req, res){
 app.use(express.static(__dirname+'public'));
 app.use('/css',express.static(path.join(__dirname, 'public/stylesheets')));
 app.use(express.static('/public/stylesheets/'));
+
+app.set('port', process.env.porst || 3000);
+app.listen(app.get('port'), function()
+        console.log('Node js is listen on port '+app.get('port'))
+    );
 module.exports = app;
