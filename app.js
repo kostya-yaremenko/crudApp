@@ -40,10 +40,10 @@ app.set('view engine', 'jade');
 ///////////////////////////////////////////////////////////
 
 
-// var db = 'mongodb://localhost/db';
-var db = 'mongodb://192.168.1.101:27017/db';
+var db = 'mongodb://localhost/db';
+// var db = 'mongodb://192.168.1.101:27017/db';
 mongoose.Promise = global.Promise;
-// mongoose.connect(db);
+mongoose.connect(db);
 
 app.get('/', function(req, res){
     res.send('happy to be here');
@@ -211,8 +211,8 @@ app.use(express.static(__dirname+'public'));
 app.use('/css',express.static(path.join(__dirname, 'public/stylesheets')));
 app.use(express.static('/public/stylesheets/'));
 
-app.set('port', process.env.porst || 3000);
-app.listen(app.get('port'), function()
-        console.log('Node js is listen on port '+app.get('port'))
-    );
+app.set('port', (process.env.port ||3000));
+app.listen(app.get('port'), function(){
+        console.log('Node js is listen on port ',app.get('port'), app.settings.env);
+    });
 module.exports = app;
