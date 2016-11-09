@@ -2,11 +2,11 @@
   "name": "crudApp",
   "version": "0.0.0",
   "private": true,
-  "scripts": {
-    "start": "node app.js",
-    "monitor": "nodemon app.js",
-    "deploy": "gcloud app deploy"
   },
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js"
+  }
   "dependencies": {
     "body-parser": "~1.15.1",
     "connect-busboy": "0.0.2",
