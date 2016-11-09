@@ -41,8 +41,8 @@ app.set('view engine', 'jade');
 
 
 // var db = 'mongodb://localhost/db';
-var db = 'mongodb://77.47.197.19:27017/db';
-// var db = 'mongodb://192.168.1.101:27017/db';
+var db = 'mongodb://kostya:030395k@77.47.197.19:27017/db';
+// var db = 'mongodb://192.16username:password@8.1.101:27017/db';
 mongoose.Promise = global.Promise;
 mongoose.connect(db);
 
