@@ -122,10 +122,9 @@ app.post('/login', function(req, res){
             if (result == req.body.password){
                  res.redirect('/galery');
             }/*else{
-                res.send(JSON.stringify(message : 'No such user!'));   
-            }*/
-        }
-        );
+                res.send(JSON.stringify(message : 'No such user!'));   */
+            }
+        });
     // User.findOne({"name":req.body.username, "password":req.body.password}, function(err, users){
     //         if (err){
     //             res.send(err);
