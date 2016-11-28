@@ -37,14 +37,39 @@ app.set('view engine', 'jade');
 // app.use('/users', users);
 
 
+//////////////////////////////////////////////////////////
+
+const pg = require('pg');
+// const connectionString = process.env.DATABASE_URL || 'postgres://localhost:5432/todo';
+const connectionString = 'postgres://sqxlcsuymisnbu:dyXu70Wuc2jTXyGwFGXFEnYloD@ec2-50-19-227-171.compute-1.amazonaws.com:5432/d66fqis9thtm0k';
+// const client = new pg.Client(connectionString);
+// const query_create_table = client.query('CREATE TABLE Users(user_name SERIAL PRIMARY KEY, password VARCHAR(40) not null)');
+// query.on('end', ()=>{ client.end(); });
+
+var client = new pg.Client({
+    user: "sqxlcsuymisnbu",
+    password: "dyXu70Wuc2jTXyGwFGXFEnYloD",
+    database: "d66fqis9thtm0k",
+    port: 5432,
+    host: "ec2-50-19-227-171.compute-1.amazonaws.com",
+    ssl: true
+}); 
+client.connect();
+
+   // "dbname=d66fqis9thtm0k host=ec2-50-19-227-171.compute-1.amazonaws.com port=54
+// 32 user=sqxlcsuymisnbu password=dyXu70Wuc2jTXyGwFGXFEnYloD sslmode=require"
+// Connection URL:
+    // postgres://sqxlcsuymisnbu:dyXu70Wuc2jTXyGwFGXFEnYloD@ec2-50-19-227-171.compu
+// te-1.amazonaws.com:5432/d66fqis9thtm0k
+
 ///////////////////////////////////////////////////////////
 
 
 // var db = 'mongodb://localhost/db';
-var db = 'mongodb://77.47.197.19:27017/db';
-// var db = 'mongodb://192.168.1.101:27017/db';
-mongoose.Promise = global.Promise;
-mongoose.connect(db);
+// // var db = 'mongodb://77.47.197.19:27017/db';
+// // var db = 'mongodb://192.168.1.101:27017/db';
+// mongoose.Promise = global.Promise;
+// mongoose.connect(db);
 
 app.get('/', function(req, res){
     res.send('happy to be here');
@@ -53,31 +78,32 @@ app.get('/', function(req, res){
 
 app.get('/users', function(req, res){
     console.log('getting all users');
-    User.find({})
-        .exec(function(err, users){
-            if (err){
-                res.send(err);
-            }else{
-                console.log(users);
-                res.json(users);
-            }
-        });
+
+    // User.find({})
+    //     .exec(function(err, users){
+    //         if (err){
+    //             res.send(err);
+    //         }else{
+    //             console.log(users);
+    //             res.json(users);
+    //         }
+    //     });
 });
 
-app.get('/users/:id', function(req, res){
-    console.log('getting one user');
-    User.findOne({
-         _id:req.params.id
-    })
-        .exec(function(err, user){
-            if (err){
-                res.send('Error!!!');
-            }else {
-                console.log(user);
-                res.json(user);
-            }
-        })
-});
+// app.get('/users/:id', function(req, res){
+//     console.log('getting one user');
+//     User.findOne({
+//          _id:req.params.id
+//     })
+//         .exec(function(err, user){
+//             if (err){
+//                 res.send('Error!!!');
+//             }else {
+//                 console.log(user);
+//                 res.json(user);
+//             }
+//         })
+// });
 
 
 app.get('/login', function(req, resp) {
@@ -88,33 +114,34 @@ app.post('/login', function(req, res){
     console.log(req.body.username + ' - ' + req.body.password);
     console.log(req.body);
 
-    User.findOne({"name":req.body.username, "password":req.body.password}, function(err, users){
-            if (err){
-                res.send(err);
-            }else{
-                console.log('Users: ' + users);
-                if (users!=null) {
-                    userName = req.body.username;
-                    res.redirect('/galery')
-                }else{
-                    // res.redirect('/login');
-                    res.sendFile(path.join(__dirname, 'public/index.html'));
-                }
-            }
-        });
+    // User.findOne({"name":req.body.username, "password":req.body.password}, function(err, users){
+    //         if (err){
+    //             res.send(err);
+    //         }else{
+    //             console.log('Users: ' + users);
+    //             if (users!=null) {
+    //                 userName = req.body.username;
+    //                 res.redirect('/galery')
+    //             }else{
+    //                 // res.redirect('/login');
+    //                 res.sendFile(path.join(__dirname, 'public/index.html'));
+    //             }
+    //         }
+    //     });
 });
 app.get('/signup', function(req, res){
    res.render('signup')
 });
 
 app.post('/signup', function(req, res){
-    var user = new User({
-        "name":req.body.username,
-        "password":req.body.password
-    }, { strict: false });
-    user.save(function(err){
-        res.redirect('/login')
-    });
+
+    // var user = new User({
+    //     "name":req.body.username,
+    //     "password":req.body.password
+    // }, { strict: false });
+    // user.save(function(err){
+    //     res.redirect('/login')
+    // });
 })
 
 app.get('/galery', function(req, res){
@@ -122,20 +149,21 @@ app.get('/galery', function(req, res){
     if (userName == null){
         userName = 'null';
     }
-    Image.find({"owner": userName}, function(err, data){
-        console.log('Img'+data);
-        if (data!="") {
-            console.log('=======Start==========');
-            for (i = 0; i < data.length; i++) {
-                console.log(data[i])
-                console.log('========End=========');
-            }
-            res.render('galery', {data: data, owner: data[0].owner});
-        }else{
-            res.render('galery', {});
-        }
 
-    });
+    // Image.find({"owner": userName}, function(err, data){
+    //     console.log('Img'+data);
+    //     if (data!="") {
+    //         console.log('=======Start==========');
+    //         for (i = 0; i < data.length; i++) {
+    //             console.log(data[i])
+    //             console.log('========End=========');
+    //         }
+    //         res.render('galery', {data: data, owner: data[0].owner});
+    //     }else{
+    //         res.render('galery', {});
+    //     }
+
+    // });
 });
 
 
@@ -154,20 +182,20 @@ app.post('/galery', function(req, res){
         console.log("Uploading: " + file);
         fstream = fs.createWriteStream(__dirname + '/users_folder/'+userName+'/'+filename );
         file.pipe(fstream);
-        var img = new Image({
-            'owner':userName,
-            'img_name':filename,
-            'img_path':path
-        }, { strict: false });
-        console.log('Schema =>'+img);
-        img.save(function(err){
+        // var img = new Image({
+        //     'owner':userName,
+        //     'img_name':filename,
+        //     'img_path':path
+        // }, { strict: false });
+        // console.log('Schema =>'+img);
+        // img.save(function(err){
 
-        });
+        // });
         fstream.on('close', function () {
-            Image.find({}).exec( function(err, data){
-                console.log('Data'+data)
-                console.log(' ')
-            });
+            // Image.find({}).exec( function(err, data){
+            //     console.log('Data'+data)
+            //     console.log(' ')
+            // });
             res.render('galery');
         });
     });
@@ -216,7 +244,7 @@ app.use(express.static('/public/stylesheets/'));
 // app.listen(app.get('port'), function(){
 //         console.log('Node js is listen on port ',app.get('port'), app.settings.env);
 //     });
-app.listen(process.env.PORT || 3000, function(){
+app.listen(process.env.PORT || 3001, function(){
   console.log("Express server listening on port %d in %s mode", this.address().port, app.settings.env);
 });
 module.exports = app;
