@@ -116,15 +116,17 @@ app.post('/login', function(req, res){
     
     client.query('SELECT user_password FROM users WHER user_name="$1"', [req.body.username], ['node hero'], function (err, result) {
         if (err) {
+             res.send(JSON.stringify(message : 'DB Error!'));
             return console.error('error happened during query', err);
         }
         if (result){
             if (result == req.body.password){
                  res.redirect('/galery');
-            }/*else{
-                res.send(JSON.stringify(message : 'No such user!'));   */
+            }else{
+                res.send(JSON.stringify(message : 'No such user!'));
             }
-        });
+        }
+    });
     // User.findOne({"name":req.body.username, "password":req.body.password}, function(err, users){
     //         if (err){
     //             res.send(err);
