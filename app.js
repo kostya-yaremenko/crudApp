@@ -121,9 +121,9 @@ app.post('/login', function(req, res){
         if (result){
             if (result == req.body.password){
                  res.redirect('/galery');
-            }else{
+            }/*else{
                 res.send(JSON.stringify(message : 'No such user!'));   
-            }
+            }*/
         }
         );
     // User.findOne({"name":req.body.username, "password":req.body.password}, function(err, users){
