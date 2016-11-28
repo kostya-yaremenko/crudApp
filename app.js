@@ -116,7 +116,7 @@ app.post('/login', function(req, res){
     
     client.query('SELECT user_password FROM users WHER user_name="$1"', [req.body.username], ['node hero'], function (err, result) {
         if (err) {
-             res.send(JSON.stringify(message : 'DB Error!'));
+             res.send(error);
             return console.error('error happened during query', err);
         }
         if (result){
