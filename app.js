@@ -121,7 +121,8 @@ app.post('/login', function(req, res){
         }
         if (result){
             if (result == req.body.password){
-                 res.redirect('/galery');
+                 // res.redirect('/galery');
+                res.send('lalalalallalalalalalalalalalal');
             }
         }
     });
