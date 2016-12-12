@@ -5,26 +5,32 @@
 body{
     background-image: url("../images/background.jpg");
     background-repeat: no-repeat;
-    -moz-background-size: 100%; /* Firefox 3.6+ */
-    -webkit-background-size: 100%; /* Safari 3.1+ и Chrome 4.0+ */
-    -o-background-size: 100%; /* Opera 9.6+ */
-    background-size: 100%;
+    position: relative;
+    background-attachment: fixed;
+    -moz-background-size: cover; /* Firefox 3.6+ */
+    -webkit-background-size: cover; /* Safari 3.1+ и Chrome 4.0+ */
+    -o-background-size: cover; /* Opera 9.6+ */
+    background-size: cover;
 }
 
 .forms-wraper{
     width: 390px;
     margin: 0 auto;
-    possition: relative;
+    position: relative;
     margin-top: 18%;
     bottom: 0;
     left: 0;
     right: 0;
+    padding-bottom: 12px;
+    background-color: rgba(180,180,180, 0.5);
 }
 
 #login_form, #signup_form{
     margin: 0 auto;
     width: auto;
-}
+    padding-left: 15px;
+    padding-right: 15px;
+    }
 input{
     border-radius: 2px;
     float:right;
@@ -42,11 +48,14 @@ p{
 
 .form-button{
     float: none;
-    width: 100px;
-    margin: 0 auto;
-    padding-top: 2px;
-    padding-bottom: 2px;
+    width: 100%;
+    margin: auto;
+    margin-top:10px;
+    padding-top: 9px;
+    padding-bottom: 9px;
     font-size: 14px;
+    border: none;
+    display: inline-block;
 }
 div form{
     margin: 0 auto;
