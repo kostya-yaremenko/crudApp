@@ -6,6 +6,10 @@ html
   body
     .forms-wraper
       form(method="POST" action="signup" id="signup-form")
-        input(type="text" name="username")
-        input(type="text" name="password")
-        input(type="submit" value="Sign Up")
+        p.input
+          sub User name
+          input(type="text" name="username")
+        p.input
+          sub Password
+          input(type="text" name="password")
+        input#btt(type="submit" value="Sign Up")

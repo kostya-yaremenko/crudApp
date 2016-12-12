@@ -25,32 +25,39 @@ body{
     background-color: rgba(180,180,180, 0.5);
 }
 
-#login_form, #signup_form{
+#login_form, #signup_form, #signin_form{
     margin: 0 auto;
     width: auto;
     padding-left: 15px;
     padding-right: 15px;
     }
+.forms-wraper form{
+    margin: 0 auto;
+    width: auto;
+    padding-left: 15px;
+    padding-right: 15px;
+}
 input{
     border-radius: 2px;
-    float:right;
+    /*float:right;*/
 }
 sub{
     font-size: 22px;
 }
 
 p{
-    margin-top: 10px;
-    margin-bottom: 10px;
-    padding-top: 10px;
-    padding-bottom: 10px;
+    width:100px;
+    /*margin-top: 10px;*/
+    /*margin-bottom: 10px;*/
+    /*padding-top: 10px;*/
+    /*padding-bottom: 10px;*/
 }
 
-.form-button{
+.form-button, #btt{
     float: none;
     width: 100%;
     margin: auto;
-    margin-top:10px;
+    margin-top:15px;
     padding-top: 9px;
     padding-bottom: 9px;
     font-size: 14px;
@@ -63,4 +70,11 @@ div form{
 }
 p input{
     font-size: 25px;
+}
+
+.input{
+    width:100px;
+}
+.input input{
+    float: left;
 }
