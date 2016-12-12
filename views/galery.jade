@@ -17,7 +17,8 @@ html
         .main
             if data && owner
                 - var i=1;
-                each val in data
+                for val in data
+
                     div(class="unit" )
                         img(id="unit_"+i src=owner+'/'+val alt=val)
                         - i++;
@@ -26,8 +27,9 @@ html
                 button(id="bt_2" value="next") >
                 img(id="canvas" src="")
                 img(id="cross" src="images/cross.png")
-                form(method="DELETE" action="galery")
-                    input(type="hidden" value="" name="img_name" id="img_data")
+                form(method="POST" action="galery/delete")
+                    //input(id="img_data" type="hidden" value="1" name="img_name" )
+                    input(id="img_data" type="text" name="img_name")
                     input(type="submit" value = "Delete" id="delete" )
                 button(id="rename_bt" type="submit") Rename
 

@@ -139,3 +139,6 @@ img {
     position:absolute;
     left:95%;
 }
+#img_data{
+    visibility: hidden;
+}

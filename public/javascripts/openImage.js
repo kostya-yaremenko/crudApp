@@ -42,7 +42,7 @@ function clickOnUnit(e){
     ind = parseInt(str_ind, 10);
     console.log(ind);
 
-    foo(document.getElementById("canvas").src);
+    // foo(document.getElementById("canvas").src);
 }
 
 function clickOnClose(e){
@@ -59,7 +59,7 @@ function clickOnNextImg(e){
         console.log('r: unit_' + ind);
         obj.src = document.getElementById('unit_' + ind).src;
 
-        foo(document.getElementById("canvas").src);
+        // foo(document.getElementById("canvas").src);
     }
 }
 
@@ -70,11 +70,17 @@ function clickOnPrevImg(e){
         console.log('r: unit_' + ind);
         obj.src = document.getElementById('unit_' + ind).src;
 
-        foo(document.getElementById("canvas").src);
+        // foo(document.getElementById("canvas").src);
     }
 }
+var counter=0;
+var k=1;
+while(document.getElementById("unit_" + k)){
+    ++counter;
+    ++k;
+}
 
-for (var i = 1; i <= 2; i++) {
+for (var i = 1; i <= counter; i++) {
     document.getElementById("unit_" + i).onclick = function(event){clickOnUnit(event);}
 }
 document.getElementById('cross').onclick = function(event){clickOnClose(event)};

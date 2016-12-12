@@ -11,14 +11,8 @@ var User = require('./User.model');
 var Image = require('./Image.model');
 var mongoose = require('mongoose');
 var path = require('path');
-
 var userName = null;
-
 var userData = Array();
-
-// // view engine setup
-// app.set('views', path.join(__dirname, 'views'));
-// app.set('view engine', 'jade');
 
 // uncomment after placing your favicon in /public
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
@@ -29,9 +23,18 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.static(path.join(__dirname, 'users_folder')));
 app.use(busboy());
 app.route('/galery');
+app.route('/galery/delete');
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
 
+app.use(function(req, res, next) {
+    if (!req.user) {
+        res.header('Cache-Control', 'private, no-cache, no-store, must-revalidate');
+        res.header('Expires', '-1');
+        res.header('Pragma', 'no-cache');
+    }
+    next();
+});
 
 // app.use(cookieParser());
 // app.use(express.static(path.join(__dirname, 'public')));
@@ -43,11 +46,7 @@ app.set('view engine', 'jade');
 //////////////////////////////////////////////////////////
 
 const pg = require('pg');
-// const connectionString = process.env.DATABASE_URL || 'postgres://localhost:5432/todo';
 const connectionString = 'postgres://sqxlcsuymisnbu:dyXu70Wuc2jTXyGwFGXFEnYloD@ec2-50-19-227-171.compute-1.amazonaws.com:5432/d66fqis9thtm0k';
-// const client = new pg.Client(connectionString);
-// const query_create_table = client.query('CREATE TABLE Users(user_name SERIAL PRIMARY KEY, password VARCHAR(40) not null)');
-// query.on('end', ()=>{ client.end(); });
 
 var client = new pg.Client({
     user: "sqxlcsuymisnbu",
@@ -66,11 +65,7 @@ client.connect();
 // te-1.amazonaws.com:5432/d66fqis9thtm0k
 
 ///////////////////////////////////////////////////////////
-
-
 // var db = 'mongodb://localhost/db';
-// // var db = 'mongodb://77.47.197.19:27017/db';
-// // var db = 'mongodb://192.168.1.101:27017/db';
 // mongoose.Promise = global.Promise;
 // mongoose.connect(db);
 
@@ -119,30 +114,16 @@ app.post('/login', function(req, res){
              res.send(err);
             return console.error('error happened during query', err);
         }
-        if (result){
+        if (result.rows.length > 0){
             if (result.rows[0].user_password == req.body.password){
                 userName = req.body.username;
                 res.redirect('/galery');
             }
             else {
-                res.send(result);
+                res.redirect('/login');
             }
         }
     });
-    // User.findOne({"name":req.body.username, "password":req.body.password}, function(err, users){
-    //         if (err){
-    //             res.send(err);
-    //         }else{
-    //             console.log('Users: ' + users);
-    //             if (users!=null) {
-    //                 userName = req.body.username;
-    //                 res.redirect('/galery')
-    //             }else{
-    //                 // res.redirect('/login');
-    //                 res.sendFile(path.join(__dirname, 'public/index.html'));
-    //             }
-    //         }
-    //     });
 });
 app.get('/signup', function(req, res){
    res.render('signup')
@@ -157,18 +138,18 @@ app.post('/signup', function(req, res){
                 res.redirect('/login')
         });
     });
-    // var user = new User({
-    //     "name":req.body.username,
-    //     "password":req.body.password
-    // }, { strict: false });
-    // user.save(function(err){
-    //     res.redirect('/login')
-    // });
+});
+
+app.get('/logout', function(req, res){
+    res.clearCookie();
+    res.redirect('/login');
+    userName = null;
 });
 
 app.get('/galery', function(req, res){
     if (userName == null){
-        userName = 'null';
+        res.redirect('/login');
+        // userName = 'null';
     }
     client.query('SELECT img_name FROM "images" WHERE user_name=$1;',[userName],  function (err, result) {
         if (err) {
@@ -220,37 +201,37 @@ app.post('/galery', function(req, res){
             if (err){
                 res.render(err);
             }else{
-                res.render('/galery', {data: userData[0], owner: userData[1]});
+                res.redirect('/galery');
             }
 
         });
-
-        // var img = new Image({
-        //     'owner':userName,
-        //     'img_name':filename,
-        //     'img_path':path
-        // }, { strict: false });
-        // console.log('Schema =>'+img);
-        // img.save(function(err){
-
+        // fstream.on('close', function () {
+        //     res.render('galery');
         // });
-        fstream.on('close', function () {
-            // Image.find({}).exec( function(err, data){
-            //     console.log('Data'+data)
-            //     console.log(' ')
-            // });
-            res.render('galery');
-        });
     });
 });
 
-app.delete('/galery', function(req, res){
+app.post('/galery/delete', function(req, res){
     console.log('body-> ',req.body);
-    var img_name = (req.body.value);
+    var img_name = (req.body.img_name);
     console.log('DELETE img_name->'+img_name);
-    if (img_name)
-        client.query("DELETE FROM images WHERE img_name=$1;",[img_name], function(err){
-    });
+
+    if (img_name) {
+        client.query("DELETE FROM images WHERE img_name=$1;", [img_name], function (err) {
+            fs.unlinkSync(__dirname + '/users_folder/'+userName+'/'+img_name, function(err) {
+                if (err) {
+                    // return console.error(err);
+                }
+                console.log("File deleted successfully!");
+            });
+            if(err){
+                // return console.error(err);
+            }
+        });
+        res.redirect('/galery');
+
+    }else
+        res.redirect('/login');
 });
 
 /////////////////////////////////////////////////////////////
