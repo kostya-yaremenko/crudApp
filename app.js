@@ -17,6 +17,11 @@ var userData = Array();
 // uncomment after placing your favicon in /public
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 // app.use(logger('dev'));
+app.use(bodyParser.json({limit: '15mb'}));
+app.use(bodyParser.urlencoded({     // to support URL-encoded bodies
+    limit: '15mb',
+    extended: true
+}));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, 'public')));
@@ -180,12 +185,6 @@ app.get('/galery', function(req, res){
 
     // });
 });
-
-
-// var myObject, newfolder;
-// myObject = new ActiveXObject("Scripting.FileSystemObject");
-// newfolder = myObject.CreateFolder ("c:\\newtmp\\");
-
 
 
 app.post('/galery', function(req, res){
