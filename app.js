@@ -114,15 +114,16 @@ app.post('/login', function(req, res){
     console.log(req.body.username + ' - ' + req.body.password);
     console.log(req.body);
     
-    client.query('SELECT user_password FROM users WHER user_name="$1"', [req.body.username], ['node hero'], function (err, result) {
+    client.query('SELECT user_password FROM users WHER user_name=$1::varchar', [req.body.username], function (err, result) {
+        done();
         if (err) {
-             res.send(error);
+             res.send(err);
             return console.error('error happened during query', err);
         }
         if (result){
             if (result == req.body.password){
-                 // res.redirect('/galery');
-                res.send('lalalalallalalalalalalalalalal');
+                 res.redirect('/galery');
+                // res.send('lalalalallalalalalalalalalalal');
             }
         }
     });
