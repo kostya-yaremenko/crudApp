@@ -114,16 +114,19 @@ app.post('/login', function(req, res){
     console.log(req.body.username + ' - ' + req.body.password);
     console.log(req.body);
     
-    client.query('SELECT user_password FROM users WHER user_name=$1::varchar', [req.body.username], function (err, result) {
-        done();
+    client.query('SELECT user_password FROM "users" WHERE user_name=$1;', [req.body.username], function (err, result) {
         if (err) {
              res.send(err);
             return console.error('error happened during query', err);
         }
         if (result){
-            if (result == req.body.password){
-                 res.redirect('/galery');
-                // res.send('lalalalallalalalalalalalalalal');
+            if (result.rows[0].user_password == req.body.password){
+                console.log("--->",result.rows[0].user_password);
+                res.redirect('/galery');
+            }
+            else {
+                res.send(result);
+                 console.log("<--",result.rows[0].user_password);
             }
         }
     });
@@ -162,7 +165,20 @@ app.get('/galery', function(req, res){
     if (userName == null){
         userName = 'null';
     }
+    client.query('SELECT img_name FROM "images";',[],  function (err, result) {
+        if (err) {
+            res.send(err);
+        }
+        if(result){
+            var data = [];
+            for (i=0; i<result.rows.length; ++i ){
+                data[i] = result.rows[i].img_name;
+            }
+            res.render('galery', {data: data, owner: userName});
+        }
+    });
 
+    res.render('galery', {});
     // Image.find({"owner": userName}, function(err, data){
     //     console.log('Img'+data);
     //     if (data!="") {
