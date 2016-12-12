@@ -4,9 +4,7 @@
     <bookmark url="file://$PROJECT_DIR$/app.js" line="0" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="28dfa27a-a8a8-411d-a59e-add819e75835" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app.js" afterPath="$PROJECT_DIR$/app.js" />
-    </list>
+    <list default="true" id="28dfa27a-a8a8-411d-a59e-add819e75835" name="Default" comment="" />
     <ignored path="crudApp.iws" />
     <ignored path=".idea/workspace.xml" />
     <ignored path="$PROJECT_DIR$/.tmp/" />
@@ -31,7 +29,7 @@
       <file leaf-file-name="app.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="255">
+            <state relative-caret-position="184">
               <caret line="195" column="89" selection-start-line="195" selection-start-column="89" selection-end-line="195" selection-end-column="89" />
               <folding />
             </state>
@@ -329,12 +327,12 @@
       <workItem from="1476916563007" duration="85614000" />
       <workItem from="1478044910467" duration="15686000" />
       <workItem from="1480119317435" duration="1425000" />
-      <workItem from="1481500778090" duration="34667000" />
+      <workItem from="1481500778090" duration="34796000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="137392000" />
+    <option name="totallyTimeSpent" value="137521000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -694,7 +692,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="255">
+        <state relative-caret-position="184">
           <caret line="195" column="89" selection-start-line="195" selection-start-column="89" selection-end-line="195" selection-end-column="89" />
           <folding />
         </state>
