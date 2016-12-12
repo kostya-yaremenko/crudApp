@@ -193,16 +193,14 @@ app.post('/galery', function(req, res){
     console.log("Uploading "+userName);
     req.pipe(req.busboy);
     req.busboy.on('file', function (fieldname, file, filename) {
-        fstream = fs.createWriteStream(__dirname + '/users_folder/'+userName+'/'+filename, function(err){
-
-        } );
+        fstream = fs.createWriteStream(__dirname + '/users_folder/'+userName+'/'+filename );
         file.pipe(fstream);
 
         client.query('INSERT INTO "images" VALUES ($1, $2, $3);',[userName, filename, path], function(err){
             if (err){
                 res.render(err);
             }else{
-                // res.redirect('/galery');
+                res.redirect('/galery');
             }
 
         });
