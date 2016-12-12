@@ -3,6 +3,7 @@ var path = require('path');
 var favicon = require('serve-favicon');
 var bodyParser = require('body-parser');
 var fs = require('fs');
+var mkdirp = require('mkdirp');
 var busboy = require('connect-busboy');
 
 var app = express();
@@ -12,6 +13,8 @@ var mongoose = require('mongoose');
 var path = require('path');
 
 var userName = null;
+
+var userData = Array();
 
 // // view engine setup
 // app.set('views', path.join(__dirname, 'views'));
@@ -111,9 +114,6 @@ app.get('/login', function(req, resp) {
 });
 
 app.post('/login', function(req, res){
-    console.log(req.body.username + ' - ' + req.body.password);
-    console.log(req.body);
-    
     client.query('SELECT user_password FROM "users" WHERE user_name=$1;', [req.body.username], function (err, result) {
         if (err) {
              res.send(err);
@@ -121,12 +121,11 @@ app.post('/login', function(req, res){
         }
         if (result){
             if (result.rows[0].user_password == req.body.password){
-                console.log("--->",result.rows[0].user_password);
+                userName = req.body.username;
                 res.redirect('/galery');
             }
             else {
                 res.send(result);
-                 console.log("<--",result.rows[0].user_password);
             }
         }
     });
@@ -150,7 +149,14 @@ app.get('/signup', function(req, res){
 });
 
 app.post('/signup', function(req, res){
-
+    mkdirp(__dirname + '/users_folder/'+req.body.username+'/', function(err) {
+        client.query('INSERT INTO "users" VALUES ($1, $2);', [req.body.username, req.body.password], function(err){
+            if (err){
+                res.render(err)
+            }else
+                res.redirect('/login')
+        });
+    });
     // var user = new User({
     //     "name":req.body.username,
     //     "password":req.body.password
@@ -158,27 +164,26 @@ app.post('/signup', function(req, res){
     // user.save(function(err){
     //     res.redirect('/login')
     // });
-})
+});
 
 app.get('/galery', function(req, res){
-
     if (userName == null){
         userName = 'null';
     }
-    client.query('SELECT img_name FROM "images";',[],  function (err, result) {
+    client.query('SELECT img_name FROM "images" WHERE user_name=$1;',[userName],  function (err, result) {
         if (err) {
             res.send(err);
         }
         if(result){
             var data = [];
             for (i=0; i<result.rows.length; ++i ){
-                data[i] = result.rows[i].img_name;
+                data[i] = String(result.rows[i].img_name);
             }
+            userData = [data, userName];
             res.render('galery', {data: data, owner: userName});
-        }
+        }else
+            res.render('galery', {});
     });
-
-    res.render('galery', {});
     // Image.find({"owner": userName}, function(err, data){
     //     console.log('Img'+data);
     //     if (data!="") {
@@ -200,17 +205,26 @@ app.get('/galery', function(req, res){
 // myObject = new ActiveXObject("Scripting.FileSystemObject");
 // newfolder = myObject.CreateFolder ("c:\\newtmp\\");
 
+
+
 app.post('/galery', function(req, res){
     var fstream;
     var path = userName+'/';
     console.log("Uploading "+userName);
     req.pipe(req.busboy);
     req.busboy.on('file', function (fieldname, file, filename) {
-        console.log("Uploading: " + filename);
-        console.log("Uploading: " + fieldname);
-        console.log("Uploading: " + file);
         fstream = fs.createWriteStream(__dirname + '/users_folder/'+userName+'/'+filename );
         file.pipe(fstream);
+
+        client.query('INSERT INTO "images" VALUES ($1, $2, $3);',[userName, filename, path], function(err){
+            if (err){
+                res.render(err);
+            }else{
+                res.render('/galery', {data: userData[0], owner: userData[1]});
+            }
+
+        });
+
         // var img = new Image({
         //     'owner':userName,
         //     'img_name':filename,
@@ -227,6 +241,15 @@ app.post('/galery', function(req, res){
             // });
             res.render('galery');
         });
+    });
+});
+
+app.delete('/galery', function(req, res){
+    console.log('body-> ',req.body);
+    var img_name = (req.body.value);
+    console.log('DELETE img_name->'+img_name);
+    if (img_name)
+        client.query("DELETE FROM images WHERE img_name=$1;",[img_name], function(err){
     });
 });
 

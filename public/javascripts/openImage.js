@@ -12,6 +12,22 @@ function parse(str){
     return null;
 }
 
+function foo(src){
+    var index = 0;
+    for (i = 0; i < src.length; ++i) {
+        if (src[i] == '/') {
+            index = i;
+        }
+    }
+    var img_name = src.slice(index+1, src.length);
+    document.getElementById("img_data").value = img_name;
+    console.log('img name: ', img_name);
+}
+
+function clickOnDleteButton(e){
+    foo(document.getElementById("canvas").src);
+}
+
 
 function clickOnUnit(e){
     var obj = document.getElementById("frame");
@@ -26,6 +42,7 @@ function clickOnUnit(e){
     ind = parseInt(str_ind, 10);
     console.log(ind);
 
+    foo(document.getElementById("canvas").src);
 }
 
 function clickOnClose(e){
@@ -41,6 +58,8 @@ function clickOnNextImg(e){
         ind = ind + 1;
         console.log('r: unit_' + ind);
         obj.src = document.getElementById('unit_' + ind).src;
+
+        foo(document.getElementById("canvas").src);
     }
 }
 
@@ -50,6 +69,8 @@ function clickOnPrevImg(e){
         ind = ind - 1;
         console.log('r: unit_' + ind);
         obj.src = document.getElementById('unit_' + ind).src;
+
+        foo(document.getElementById("canvas").src);
     }
 }
 
@@ -59,3 +80,4 @@ for (var i = 1; i <= 2; i++) {
 document.getElementById('cross').onclick = function(event){clickOnClose(event)};
 document.getElementById('bt_2').onclick = function(event){clickOnNextImg(event)};
 document.getElementById('bt_1').onclick = function(event){clickOnPrevImg(event)};
+document.getElementById('delete').onclick = function(event){clickOnDleteButton(event)};
