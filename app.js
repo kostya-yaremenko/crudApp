@@ -19,7 +19,7 @@ var userData = Array();
 // app.use(logger('dev'));
 app.use(bodyParser.json({limit: '15mb'}));
 app.use(bodyParser.urlencoded({     // to support URL-encoded bodies
-    limit: '15mb',
+    limit: '1500mb',
     extended: true
 }));
 app.use(bodyParser.json());
