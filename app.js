@@ -200,13 +200,13 @@ app.post('/galery', function(req, res){
             if (err){
                 res.render(err);
             }else{
-                res.redirect('/galery');
+
             }
 
         });
-        // fstream.on('close', function () {
-        //     res.render('galery');
-        // });
+        fstream.on('close', function () {
+            res.redirect('/galery');
+        });
     });
 });
 
