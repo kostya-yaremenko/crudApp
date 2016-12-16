@@ -5,33 +5,43 @@ html
     head
         title Galery
         link( rel="stylesheet" href="stylesheets/galery.css")
+        link(rel="shortcut icon" href="../favicon.ico")
+        link(rel="stylesheet" type="text/css" href="stylesheets/normalize.css")
+        link(rel="stylesheet" type="text/css" href="stylesheets/demo.css")
+        link(rel="stylesheet" type="text/css" href="stylesheets/component.css")
+        //link(rel="stylesheet" href="stylesheets/index.css")
+        link(href='http://fonts.googleapis.com/css?family=Raleway:200,400,800' rel='stylesheet' type='text/css')
     body
-        .panel
-            .left-side
-                form(method="POST" enctype = "multipart/form-data" action="galery")
-                    input(type="file" name="photos" size="10")
-                    input(type="submit" value="Load Images")
-            .right-side
-                form(method="GET" enctype = "multipart/form-data" action="logout")
-                    input(type="submit" value="Logout")
-        .main
-            if data && owner
-                - var i=1;
-                for val in data
-
-                    div(class="unit" )
-                        img(id="unit_"+i src=owner+'/'+val alt=val)
-                        - i++;
-        div(id="frame")
-                button(id="bt_1" value="prew") <
-                button(id="bt_2" value="next") >
-                img(id="canvas" src="")
-                img(id="cross" src="images/cross.png")
-                form(method="POST" action="galery/delete")
-                    //input(id="img_data" type="hidden" value="1" name="img_name" )
-                    input(id="img_data" type="text" name="img_name")
-                    input(type="submit" value = "Delete" id="delete" )
-                button(id="rename_bt" type="submit") Rename
-
-
-        script(src="javascripts/openImage.js")
+        .container.demo-1
+            .content
+                .panel
+                    .left-side
+                        form(method="POST" enctype = "multipart/form-data" action="galery")
+                            input(type="file" name="photos" size="10")
+                            input(type="submit" value="Load Images")
+                    .right-side
+                        form(method="GET" enctype = "multipart/form-data" action="logout")
+                            input(type="submit" value="Logout")
+                .main
+                    if data && owner
+                        - var i=1;
+                        for val in data
+                            div(class="unit" )
+                                img(id="unit_"+i src=owner+'/'+val alt=val)
+                                - i++;
+                div(id="frame")
+                        button(id="bt_1" value="prew") <
+                        button(id="bt_2" value="next") >
+                        img(id="canvas" src="")
+                        img(id="cross" src="images/cross.png")
+                        form(method="POST" action="galery/delete")
+                            //input(id="img_data" type="hidden" value="1" name="img_name" )
+                            input(id="img_data" type="text" name="img_name")
+                            input(type="submit" value = "Delete" id="delete" )
+                        button(id="rename_bt" type="submit") Rename
+                canvas#demo-canvas
+    script(src="javascripts/openImage.js")
+    script(src="javascripts/TweenLite.min.js")
+    script(src="javascripts/EasePack.min.js")
+    script(src="javascripts/rAF.js")
+    script(src="javascripts/demo.js")

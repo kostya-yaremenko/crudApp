@@ -122,10 +122,10 @@ app.post('/login', function(req, res){
         if (result.rows.length > 0){
             if (result.rows[0].user_password == req.body.password){
                 userName = req.body.username;
-                res.redirect('/galery');
+                return res.redirect('/galery');
             }
             else {
-                res.redirect('/login');
+                return res.redirect('/login');
             }
         }
     });
@@ -140,7 +140,7 @@ app.post('/signup', function(req, res){
             if (err){
                 res.render(err)
             }else
-                res.redirect('/login')
+                return res.redirect('/login')
         });
     });
 });
@@ -153,7 +153,7 @@ app.get('/logout', function(req, res){
 
 app.get('/galery', function(req, res){
     if (userName == null){
-        res.redirect('/login');
+        return res.redirect('/login');
         // userName = 'null';
     }
     client.query('SELECT img_name FROM "images" WHERE user_name=$1;',[userName],  function (err, result) {
@@ -205,7 +205,7 @@ app.post('/galery', function(req, res){
 
         });
         fstream.on('close', function () {
-            res.redirect('/galery');
+            return res.redirect('/galery');
         });
     });
 });
@@ -227,10 +227,10 @@ app.post('/galery/delete', function(req, res){
                 // return console.error(err);
             }
         });
-        res.redirect('/galery');
+        return res.redirect('/galery');
 
     }else
-        res.redirect('/login');
+        return res.redirect('/login');
 });
 
 /////////////////////////////////////////////////////////////

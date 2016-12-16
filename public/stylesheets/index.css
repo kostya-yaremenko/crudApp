@@ -3,14 +3,14 @@
     margin:0;
 }
 body{
-    background-image: url("../images/background.jpg");
-    background-repeat: no-repeat;
-    position: relative;
-    background-attachment: fixed;
-    -moz-background-size: cover; /* Firefox 3.6+ */
-    -webkit-background-size: cover; /* Safari 3.1+ и Chrome 4.0+ */
-    -o-background-size: cover; /* Opera 9.6+ */
-    background-size: cover;
+    /*background-image: url("../images/background.jpg");*/
+    /*background-repeat: no-repeat;*/
+    /*position: relative;*/
+    /*background-attachment: fixed;*/
+    /*-moz-background-size: cover; !* Firefox 3.6+ *!*/
+    /*-webkit-background-size: cover; !* Safari 3.1+ и Chrome 4.0+ *!*/
+    /*-o-background-size: cover; !* Opera 9.6+ *!*/
+    /*background-size: cover;*/
 }
 
 .forms-wraper{
@@ -41,14 +41,18 @@ input{
     border-radius: 2px;
     /*float:right;*/
 }
-sub{
+p sub{
     font-size: 22px;
+    display:inline-table;
+    margin-top: 10px;
+    margin-bottom: 10px;
+
 }
 
 p{
-    width:100px;
-    /*margin-top: 10px;*/
-    /*margin-bottom: 10px;*/
+    width:200px;
+ /*   margin-top: 10px;
+    margin-bottom: 10px;*/
     /*padding-top: 10px;*/
     /*padding-bottom: 10px;*/
 }
