@@ -4,32 +4,33 @@ doctype html
 html
     head
         title Galery
-        link( rel="stylesheet" href="stylesheets/galery.css")
         link(rel="shortcut icon" href="../favicon.ico")
         link(rel="stylesheet" type="text/css" href="stylesheets/normalize.css")
         link(rel="stylesheet" type="text/css" href="stylesheets/demo.css")
         link(rel="stylesheet" type="text/css" href="stylesheets/component.css")
         //link(rel="stylesheet" href="stylesheets/index.css")
+        link( rel="stylesheet" href="stylesheets/galery.css")
         link(href='http://fonts.googleapis.com/css?family=Raleway:200,400,800' rel='stylesheet' type='text/css')
     body
         .container.demo-1
             .content
-                .panel
-                    .left-side
-                        form(method="POST" enctype = "multipart/form-data" action="galery")
-                            input(type="file" name="photos" size="10")
-                            input(type="submit" value="Load Images")
-                    .right-side
-                        form(method="GET" enctype = "multipart/form-data" action="logout")
-                            input(type="submit" value="Logout")
-                .main
-                    if data && owner
-                        - var i=1;
-                        for val in data
-                            div(class="unit" )
-                                img(id="unit_"+i src=owner+'/'+val alt=val)
-                                - i++;
-                div(id="frame")
+                .my-wraper
+                    .panel
+                        .left-side
+                            form(method="POST" enctype = "multipart/form-data" action="galery")
+                                input(type="file" name="photos" size="10")
+                                input(type="submit" value="Load Images")
+                        .right-side
+                            form(method="GET" enctype = "multipart/form-data" action="logout")
+                                input(type="submit" value="Logout")
+                    .main
+                        if data && owner
+                            - var i=1;
+                            for val in data
+                                div(class="unit" )
+                                    img(id="unit_"+i src=owner+'/'+val alt=val)
+                                    - i++;
+                    div(id="frame")
                         button(id="bt_1" value="prew") <
                         button(id="bt_2" value="next") >
                         img(id="canvas" src="")

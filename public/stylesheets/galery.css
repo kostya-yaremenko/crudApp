@@ -5,7 +5,7 @@
 
 body{
     background-color: #222222;
-    background-image: url("../images/galery_background.jpg");
+    background-image: url("../images/demo-1-bg.jpg");
 /*    background-repeat: no-repeat;
     position: relative;
     background-attachment: fixed;
@@ -147,8 +147,13 @@ img {
 .wraper{
     z-index: 100;
 }
+.my-wraper{
+    position: relative;
+    z-index: 10;
+}
 
-canvas{
+canvas {
     z-index: 1;
-    margin-top: 0;
+    margin-top: -23%;
+    height: 100%;
 }
